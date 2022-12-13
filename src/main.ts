@@ -1,14 +1,21 @@
-import { SentryInterceptor } from './sentry/intercepter';
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { Handlers, init, Integrations } from '@sentry/node';
+import { addExtensionMethods } from '@sentry/tracing';
 import { AppModule } from './app.module';
-import { init } from '@sentry/node';
+import { SentryInterceptor } from './sentry/intercepter';
 
 function sentrySetup(app: INestApplication) {
 	init({
 		dsn: process.env.SENTRY_DSN,
+		integrations: [new Integrations.Http({ tracing: true })],
+		tracesSampleRate: 1.0,
 	});
 	app.useGlobalInterceptors(new SentryInterceptor());
+	app.use(Handlers.errorHandler());
+	app.use(Handlers.requestHandler());
+	app.use(Handlers.tracingHandler());
+	addExtensionMethods();
 }
 
 async function bootstrap() {
