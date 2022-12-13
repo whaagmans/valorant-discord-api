@@ -14,8 +14,10 @@ export class SentryInterceptor implements NestInterceptor {
 		next: CallHandler<any>
 	): Observable<any> | Promise<Observable<any>> {
 		return next.handle().pipe(
-			tap(null, (exception) => {
-				captureException(exception);
+			tap({
+				error: (exception) => {
+					captureException(exception);
+				},
 			})
 		);
 	}
