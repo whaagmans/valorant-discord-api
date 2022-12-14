@@ -1,9 +1,9 @@
 {
   "name": "valorant-discord-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
+  "description": "API to interact with the Riot API for Valorant",
+  "author": "Wesley Haagmans",
+  "private": false,
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -71,5 +71,13 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Redeamerz/valorant-discord-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Redeamerz/valorant-discord-api/issues"
+  },
+  "homepage": "https://github.com/Redeamerz/valorant-discord-api#readme"
 }
