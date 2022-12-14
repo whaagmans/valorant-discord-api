@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { Handlers, init, Integrations } from '@sentry/node';
 import { addExtensionMethods } from '@sentry/tracing';
 import { AppModule } from './app.module';
-import { SentryInterceptor } from './sentry/intercepter';
+import { SentryInterceptor } from './interceptors/SentryIntercepter';
 
 function sentrySetup(app: INestApplication) {
 	init({
