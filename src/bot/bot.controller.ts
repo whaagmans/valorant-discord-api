@@ -6,15 +6,17 @@ import { BotService } from './bot.service';
 
 @Controller('bot')
 export class BotController {
-	client: any;
+	cookieJar;
 	constructor(private readonly botService: BotService) {
-		const jar = new CookieJar();
-		const _client = wrapper(axios.create({ jar }));
-		this.client = _client;
+		wrapper(axios);
+		const _cookieJar = new CookieJar();
+		this.cookieJar = _cookieJar;
 	}
 
 	@Post()
-	async loginUser(): Promise<string> {
-		return await this.botService.loginRiot(this.client);
+	async loginUser(): Promise<any> {
+		const res = await this.botService.loginRiot(this.cookieJar);
+		console.log(res);
+		return res;
 	}
 }
