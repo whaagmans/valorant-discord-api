@@ -4,7 +4,7 @@
   "description": "API to interact with the Riot API for Valorant",
   "author": "Wesley Haagmans",
   "private": false,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
