@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Handlers, init, Integrations } from '@sentry/node';
 import { addExtensionMethods } from '@sentry/tracing';
 import { AppModule } from './app.module';
@@ -18,10 +19,26 @@ function sentrySetup(app: INestApplication) {
 	addExtensionMethods();
 }
 
+function swaggerSetup(app: INestApplication) {
+	const config = new DocumentBuilder()
+		.setTitle('Valorant Bot API')
+		.setDescription('API to retrieve data from Valorant for a Discord bot')
+		.setVersion('1.0')
+		.addTag('valorant')
+		.build();
+
+	const document = SwaggerModule.createDocument(app, config);
+	SwaggerModule.setup('swagger', app, document);
+}
+
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
+	// Configuration to integrate sentry into the project.
 	sentrySetup(app);
+
+	// Configuration to integrate OpenAPI swagger into the project.
+	swaggerSetup(app);
 
 	const port = process.env.PORT || 3000;
 	await app.listen(port);
