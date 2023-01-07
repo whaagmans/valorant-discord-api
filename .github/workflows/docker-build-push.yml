@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  build:
+  build-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,7 +23,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ DOCKER_REPOSITORY }}:latest , ${{ secrets.DOCKERHUB_USERNAME }}/${{ DOCKER_REPOSITORY }}:${{ github.event.release.tag_name }}
-      - name: Changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: Changelog
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:latest , ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ github.event.release.tag_name }}
+
