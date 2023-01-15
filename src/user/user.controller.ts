@@ -2,27 +2,58 @@ import { extractParamFromUrlHash } from '@/helpers/Extractors';
 import {
 	Body,
 	Controller,
+	Get,
+	InternalServerErrorException,
 	NotImplementedException,
+	Param,
 	Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import axios from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
 import { User } from './DTO/User.dto';
 import { UserMfaDTO } from './DTO/UserMfa.dto';
 import { UserSignInDTO } from './DTO/UserSignIn.dto';
+import { FirestoreService } from './firestore.service';
 import { UserService } from './user.service';
 
 @Controller('user')
+@ApiTags('User')
 export class UserController {
 	cookieJar;
 	private riotSessionCached = false;
-	constructor(private readonly userService: UserService) {
+	constructor(
+		private readonly userService: UserService,
+		private readonly firestoreService: FirestoreService
+	) {
 		wrapper(axios);
 		const _cookieJar = new CookieJar();
 		this.cookieJar = _cookieJar;
 	}
-	@Post()
+
+	@Post('addUser')
+	async addUser(@Body() user: User) {
+		try {
+			await this.firestoreService.addUser(user);
+			return { user, message: 'user created' };
+		} catch (err) {
+			throw new InternalServerErrorException(err);
+		}
+	}
+
+	@Get('getUser/:id')
+	async getUser(@Param('id') id: string): Promise<User> {
+		console.log(id);
+		try {
+			const user = await this.firestoreService.getUserById(id);
+			return user;
+		} catch (err) {
+			throw new InternalServerErrorException(err);
+		}
+	}
+
+	@Post('entitlement')
 	async test(): Promise<any> {
 		const access_token = '';
 		const entitlement_token = this.receiveRiotEntitlement(access_token);
