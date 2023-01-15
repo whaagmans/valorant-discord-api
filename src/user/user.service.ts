@@ -1,3 +1,4 @@
+import { RiotAuthResponse, RiotEntitlementResponse } from '@/types/Auth';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import axios from 'axios';
 import { CookieJar } from 'tough-cookie';
@@ -5,7 +6,7 @@ import { UserMfaDTO } from './DTO/UserMfa.dto';
 import { UserSignInDTO } from './DTO/UserSignIn.dto';
 
 @Injectable()
-export class BotService {
+export class UserService {
 	private readonly api_url = 'https://auth.riotgames.com/api/v1/authorization';
 
 	async getRiotSessionCookie(cookieJar: CookieJar): Promise<any> {
@@ -57,7 +58,10 @@ export class BotService {
 		return await response.data;
 	}
 
-	async mfaSignIn(user: UserMfaDTO, cookieJar: CookieJar): Promise<any> {
+	async mfaSignIn(
+		user: UserMfaDTO,
+		cookieJar: CookieJar
+	): Promise<RiotAuthResponse> {
 		const data = {
 			type: user.type,
 			rememberDevice: user.rememberDevice,
@@ -78,5 +82,18 @@ export class BotService {
 		console.log(response);
 
 		return await response.data;
+	}
+
+	async getRiotEntitlementToken(access_token: string): Promise<string> {
+		const res = await axios.post<RiotEntitlementResponse>(
+			'https://entitlements.auth.riotgames.com/api/token/v1',
+			{},
+			{
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+				},
+			}
+		);
+		return res.data.entitlements_token;
 	}
 }
