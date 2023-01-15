@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { BotModule } from './bot/bot.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-	imports: [ConfigModule.forRoot(), BotModule],
+	imports: [ConfigModule.forRoot(), UserModule],
 	controllers: [],
 	providers: [],
 })

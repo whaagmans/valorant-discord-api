@@ -24,13 +24,11 @@ function swaggerSetup(app: INestApplication) {
 		.setTitle('Valorant Bot API')
 		.setDescription('API to retrieve data from Valorant for a Discord bot')
 		.setVersion('1.0')
-		.addTag('valorant')
 		.build();
 
 	const document = SwaggerModule.createDocument(app, config);
 	SwaggerModule.setup('swagger', app, document);
 }
-
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
