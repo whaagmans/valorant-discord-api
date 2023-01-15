@@ -9,13 +9,13 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
       "@/types/*": [
-        "src/types/*"
+        "types/*"
       ],
       "@/helpers/*": [
-        "src/helpers/*"
+        "helpers/*"
       ]
     },
     "incremental": true,
@@ -24,6 +24,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true
   }
 }
