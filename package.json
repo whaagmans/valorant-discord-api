@@ -27,7 +27,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.1.4",
-    "@sentry/node": "^7.26.0",
+    "@sentry/node": "^7.32.0",
     "@sentry/tracing": "^7.26.0",
     "axios": "^1.2.1",
     "axios-cookiejar-support": "^4.0.3",
