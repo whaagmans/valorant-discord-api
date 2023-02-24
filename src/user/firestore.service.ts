@@ -1,5 +1,6 @@
 import {
 	Injectable,
+	InternalServerErrorException,
 	NotFoundException,
 	NotImplementedException,
 } from '@nestjs/common';
@@ -40,7 +41,11 @@ export class FirestoreService {
 	}
 
 	async addUser(user: User) {
-		await setDoc(doc(this.db, 'users', user.discord_id), user);
+		try {
+			await setDoc(doc(this.db, 'users', user.discord_id), user);
+		} catch (err) {
+			throw new InternalServerErrorException(err);
+		}
 	}
 
 	async updateUser(user: User) {
