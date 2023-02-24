@@ -61,7 +61,6 @@
     "tsconfig-paths": "4.1.1",
     "typescript": "^4.9.4"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Redeamerz/valorant-discord-api.git"
