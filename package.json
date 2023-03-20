@@ -23,7 +23,7 @@
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
-    "@nestjs/core": "^9.0.0",
+    "@nestjs/core": "^9.3.10",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.1.4",
